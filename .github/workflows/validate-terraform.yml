@@ -1,0 +1,26 @@
+---
+name: Validate terraform
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+
+env:
+  TF_VERSION: "1.10.2"
+
+jobs:
+  verify-repositories:
+    name: Check and Generate Terraform Plan
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Initialize job
+        uses: ./.github/actions/initialize-job
+        with:
+          terraform-version: ${{ env.TF_VERSION }}
+
+      - name: Validate terraform
+        uses: ./.github/actions/terraform-plan
+        with:
+          working-directory: services/repositories
