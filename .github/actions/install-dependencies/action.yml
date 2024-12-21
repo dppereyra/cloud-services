@@ -1,14 +1,6 @@
 name: Install dependencies
 description: Install dependencies
 inputs:
-  node-version:
-    description: 'Node version'
-    required: true
-    default: ""
-  bitwarden-cli-version:
-    description: 'Bitwarden cli version'
-    required: true
-    default: ""
   terraform-version:
     description: 'Terraform version'
     required: true

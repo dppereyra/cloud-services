@@ -1,0 +1,27 @@
+name: Initialize Pipeline
+description: Install dependencies
+inputs:
+  terraform-version:
+    description: 'Terraform version'
+    required: true
+    default: ""
+
+runs:
+  using: composite
+  steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Get common secrets
+      uses: bitwarden/sm-action@v2
+      with:
+        access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+        secrets: |
+            ${{ secrets.AWS_ACCESS_KEY_ID }} > AWS_ACCESS_KEY_ID
+            ${{ secrets.AWS_SECRET_ACCESS_KEY }} > AWS_SECRET_ACCESS_KEY
+
+    - name: Install dependencies
+      uses: ./.github/actions/install-dependencies
+      with:
+        terraform-version: ${{ inputs.terraform-version }}
