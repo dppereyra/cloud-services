@@ -1,0 +1,25 @@
+name: Install dependencies
+description: Install dependencies
+inputs:
+  node-version:
+    description: 'Node version'
+    required: true
+    default: ""
+  bitwarden-cli-version:
+    description: 'Bitwarden cli version'
+    required: true
+    default: ""
+  terraform-version:
+    description: 'Terraform version'
+    required: true
+    default: ""
+
+runs:
+  using: composite
+  steps:
+
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v3
+      if: ${{ inputs.terraform-version != '' }}
+      with:
+        terraform_version: ${{ inputs.terraform-version }}
