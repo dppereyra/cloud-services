@@ -1,0 +1,43 @@
+name: Initialize Pipeline
+description: Install dependencies
+inputs:
+  terraform-version:
+    description: 'Terraform version'
+    required: true
+  aws_access_key_id:
+    description: 'AWS Access Key ID'
+    required: true
+  aws_secret_access_key:
+    description: 'AWS Secret Access Key'
+    required: true
+  s3_bucket:
+    description: 'S3 Bucket
+    required: true
+  s3_region:
+    description: 'S3 Region'
+    required: true
+  s3_endpoint:
+    description: 'S3 Endpoint'
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+    - name: Get common secrets
+      uses: bitwarden/sm-action@v2
+      with:
+        access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+        secrets: |
+            ${{ inputs.AWS_ACCESS_KEY_ID }} > AWS_ACCESS_KEY_ID
+            ${{ inputs.AWS_SECRET_ACCESS_KEY }} > AWS_SECRET_ACCESS_KEY
+
+    - name: Install dependencies
+      uses: ./.github/actions/install-dependencies
+      with:
+        terraform-version: ${{ inputs.terraform-version }}
+
+    - name: Generate backend configuration
+      working-directory: services
+      shell: bash
+      run: ./scripts/generate-backend-config.sh
