@@ -29,6 +29,8 @@ jobs:
               ${{ secrets.TF_BUCKET }} > S3_BUCKET
               ${{ secrets.TF_REGION }} > S3_REGION
               ${{ secrets.TF_ENDPOINT }} > S3_ENDPOINT
+              ${{ secrets.TOKEN_GITHUB }} > GITHUB_TOKEN
+              ${{ secrets.TOKEN_GITLAB }} > GITLAB_TOKEN
 
       - name: Initialize job
         uses: ./.github/actions/initialize-job
