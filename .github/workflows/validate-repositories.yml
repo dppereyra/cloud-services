@@ -3,7 +3,13 @@ name: Validate Repositories
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - "services/repositories/**"
   pull_request:
+    types: [opened, synchronize]
     branches:
       - master
 
