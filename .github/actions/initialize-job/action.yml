@@ -17,4 +17,4 @@ runs:
     - name: Generate backend configuration
       working-directory: services
       shell: bash
-      run: ./scripts/generate-backend-config.sh
+      run: scripts/generate-backend-config.sh
