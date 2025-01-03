@@ -9,17 +9,6 @@ runs:
   using: composite
   steps:
 
-    - name: Get common secrets
-      uses: bitwarden/sm-action@v2
-      with:
-        access_token: ${{ secrets.BW_ACCESS_TOKEN }}
-        secrets: |
-            ${{ secrets.AWS_ACCESS_KEY_ID }} > AWS_ACCESS_KEY_ID
-            ${{ secrets.AWS_SECRET_ACCESS_KEY }} > AWS_SECRET_ACCESS_KEY
-            ${{ secrets.S3_BUCKET }} > S3_BUCKET
-            ${{ secrets.S3_REGION }} > S3_REGION
-            ${{ secrets.S3_ENDPOINT }} > S3_ENDPOINT
-
     - name: Install dependencies
       uses: ./.github/actions/install-dependencies
       with:
