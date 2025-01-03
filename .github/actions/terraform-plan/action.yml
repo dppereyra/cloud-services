@@ -20,7 +20,7 @@ runs:
     - name: Initialize terraform
       working-directory: ${{ inputs.working-directory }}
       shell: bash
-      run: terraform init -backend-config=backend-config.json -reconfigure -upgrade
+      run: terraform init -backend-config=../backend-config.json -reconfigure -upgrade
 
     - name: Validate terraform configuration
       working-directory: ${{ inputs.working-directory }}
