@@ -3,6 +3,12 @@ name: Provision Repositories
 
 on:
   workflow_dispatch:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+    paths:
+      - "services/repositories/**"
 
 env:
   TF_VERSION: "1.10.2"
