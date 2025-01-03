@@ -1,0 +1,33 @@
+name: Terraform Plan
+description: Generate Terraform Plan
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: true
+  plan-artifact-name:
+    description: 'Artifact name of plan'
+    required: true
+  plan-artifact-file:
+    description: 'Artifact path of plan'
+    required: true
+
+
+runs:
+  using: composite
+  steps:
+
+    - name: Download Terraform Plan
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.plan-artifact-name }}
+        path: ${{ inputs.working-directory }}
+
+    - name: Initialize terraform
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+      run: terraform init -backend-config=../backend-config.json -reconfigure -upgrade
+
+    - name: Apply terraform plan
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+      run: terraform apply -auto-approve -input=false ${{ inputs.plan-artifact-file }}
