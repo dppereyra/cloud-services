@@ -4,21 +4,6 @@ inputs:
   terraform-version:
     description: 'Terraform version'
     required: true
-  aws_access_key_id:
-    description: 'AWS Access Key ID'
-    required: true
-  aws_secret_access_key:
-    description: 'AWS Secret Access Key'
-    required: true
-  s3_bucket:
-    description: 'S3 Bucket
-    required: true
-  s3_region:
-    description: 'S3 Region'
-    required: true
-  s3_endpoint:
-    description: 'S3 Endpoint'
-    required: true
 
 runs:
   using: composite
@@ -29,11 +14,11 @@ runs:
       with:
         access_token: ${{ secrets.BW_ACCESS_TOKEN }}
         secrets: |
-            ${{ inputs.AWS_ACCESS_KEY_ID }} > AWS_ACCESS_KEY_ID
-            ${{ inputs.AWS_SECRET_ACCESS_KEY }} > AWS_SECRET_ACCESS_KEY
-            ${{ inputs.S3_BUCKET }} > S3_BUCKET
-            ${{ inputs.S3_REGION }} > S3_REGION
-            ${{ inputs.S3_ENDPOINT }} > S3_ENDPOINT
+            ${{ secrets.AWS_ACCESS_KEY_ID }} > AWS_ACCESS_KEY_ID
+            ${{ secrets.AWS_SECRET_ACCESS_KEY }} > AWS_SECRET_ACCESS_KEY
+            ${{ secrets.S3_BUCKET }} > S3_BUCKET
+            ${{ secrets.S3_REGION }} > S3_REGION
+            ${{ secrets.S3_ENDPOINT }} > S3_ENDPOINT
 
     - name: Install dependencies
       uses: ./.github/actions/install-dependencies
