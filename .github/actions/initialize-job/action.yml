@@ -1,0 +1,20 @@
+name: Initialize Pipeline
+description: Install dependencies
+inputs:
+  terraform-version:
+    description: 'Terraform version'
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+    - name: Install dependencies
+      uses: ./.github/actions/install-dependencies
+      with:
+        terraform-version: ${{ inputs.terraform-version }}
+
+    - name: Generate backend configuration
+      working-directory: services
+      shell: bash
+      run: ../scripts/generate-backend-config.sh
