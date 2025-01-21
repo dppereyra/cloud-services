@@ -44,7 +44,7 @@ jobs:
       - name: Run terraform plan
         uses: ./.github/actions/terraform-plan
         with:
-          working-directory: services/repositories
+          working-directory: src/repositories
           plan-artifact-name: repositories-tfplan
           plan-artifact-file: repositories.tfplan
 
