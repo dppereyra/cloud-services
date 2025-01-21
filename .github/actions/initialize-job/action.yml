@@ -15,6 +15,6 @@ runs:
         terraform-version: ${{ inputs.terraform-version }}
 
     - name: Generate backend configuration
-      working-directory: services
+      working-directory: src
       shell: bash
       run: ../scripts/generate-backend-config.sh
