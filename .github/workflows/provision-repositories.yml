@@ -80,6 +80,6 @@ jobs:
       - name: Run terraform apply
         uses: ./.github/actions/terraform-apply
         with:
-          working-directory: src/repositories
+          working-directory: services/repositories
           plan-artifact-name: repositories-tfplan
           plan-artifact-file: repositories.tfplan
