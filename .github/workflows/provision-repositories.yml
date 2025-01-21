@@ -1,0 +1,85 @@
+---
+name: Provision Repositories
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+    paths:
+      - "src/repositories/**"
+
+env:
+  TF_VERSION: "1.10.2"
+
+jobs:
+  generate-plan:
+    name: Check and Generate Terraform Plan
+    runs-on: ubuntu-24.04
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get common secrets
+        uses: bitwarden/sm-action@v2
+        with:
+          access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+          secrets: |
+              ${{ secrets.AWS_ACCESS_KEY_ID }} > AWS_ACCESS_KEY_ID
+              ${{ secrets.AWS_SECRET_ACCESS_KEY }} > AWS_SECRET_ACCESS_KEY
+              ${{ secrets.TF_BUCKET }} > S3_BUCKET
+              ${{ secrets.TF_REGION }} > S3_REGION
+              ${{ secrets.TF_ENDPOINT }} > S3_ENDPOINT
+              ${{ secrets.TOKEN_GITHUB }} > GITHUB_TOKEN
+              ${{ secrets.TOKEN_GITLAB }} > GITLAB_TOKEN
+
+      - name: Initialize job
+        uses: ./.github/actions/initialize-job
+        with:
+          terraform-version: ${{ env.TF_VERSION }}
+
+      - name: Run terraform plan
+        uses: ./.github/actions/terraform-plan
+        with:
+          working-directory: services/repositories
+          plan-artifact-name: repositories-tfplan
+          plan-artifact-file: repositories.tfplan
+
+
+  apply-plan:
+    name: Apply Terraform Plan
+    needs: generate-plan
+    runs-on: ubuntu-24.04
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get common secrets
+        uses: bitwarden/sm-action@v2
+        with:
+          access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+          secrets: |
+              ${{ secrets.AWS_ACCESS_KEY_ID }} > AWS_ACCESS_KEY_ID
+              ${{ secrets.AWS_SECRET_ACCESS_KEY }} > AWS_SECRET_ACCESS_KEY
+              ${{ secrets.TF_BUCKET }} > S3_BUCKET
+              ${{ secrets.TF_REGION }} > S3_REGION
+              ${{ secrets.TF_ENDPOINT }} > S3_ENDPOINT
+              ${{ secrets.TOKEN_GITHUB }} > GITHUB_TOKEN
+              ${{ secrets.TOKEN_GITLAB }} > GITLAB_TOKEN
+
+
+      - name: Initialize job
+        uses: ./.github/actions/initialize-job
+        with:
+          terraform-version: ${{ env.TF_VERSION }}
+
+      - name: Run terraform apply
+        uses: ./.github/actions/terraform-apply
+        with:
+          working-directory: src/repositories
+          plan-artifact-name: repositories-tfplan
+          plan-artifact-file: repositories.tfplan

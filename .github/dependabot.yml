@@ -1,0 +1,12 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "terraform"
+    directory: "src"
+    schedule:
+      interval: "daily"
+      time: "05:00"
+      timezone: "Asia/Manila"
+    commit-message:
+      prefix: "Chore(terraform):"
+    open-pull-requests-limit: 0
