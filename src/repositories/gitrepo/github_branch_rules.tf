@@ -25,10 +25,6 @@ resource "github_branch_protection_v3" "master" {
     required_approving_review_count = 0
   }
 
-  restrictions {
-    apps = ["github-actions"]
-  }
-
   depends_on = [
     github_repository_file.github,
     github_repository_file.src
