@@ -6,12 +6,3 @@ module "docker-images" {
   has_wiki    = true
   has_issues  = true
 }
-
-module "ladybird-windows" {
-  source = "./gitrepo"
-
-  name        = "ladybird-windows"
-  description = "Windows build of the ladybird browser"
-  has_wiki    = false
-  has_issues  = true
-}
