@@ -23,7 +23,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get common secrets
+      - name: Get secrets
         uses: bitwarden/sm-action@v2
         with:
           access_token: ${{ secrets.BW_ACCESS_TOKEN }}
@@ -48,7 +48,6 @@ jobs:
           plan-artifact-name: repositories-tfplan
           plan-artifact-file: repositories.tfplan
 
-
   apply-plan:
     name: Apply Terraform Plan
     needs: generate-plan
@@ -58,7 +57,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get common secrets
+      - name: Get secrets
         uses: bitwarden/sm-action@v2
         with:
           access_token: ${{ secrets.BW_ACCESS_TOKEN }}
@@ -70,7 +69,6 @@ jobs:
               ${{ secrets.TF_ENDPOINT }} > S3_ENDPOINT
               ${{ secrets.TOKEN_GITHUB }} > GITHUB_TOKEN
               ${{ secrets.TOKEN_GITLAB }} > GITLAB_TOKEN
-
 
       - name: Initialize job
         uses: ./.github/actions/initialize-job
