@@ -6,3 +6,12 @@ module "docker-images" {
   has_wiki    = true
   has_issues  = true
 }
+
+module "homelab" {
+  source = "./gitrepo"
+
+  name        = "Home Lab"
+  description = "Home lab configurations and setup"
+  has_wiki    = true
+  has_issues  = true
+}
