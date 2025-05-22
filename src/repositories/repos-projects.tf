@@ -10,7 +10,7 @@ module "docker-images" {
 module "homelab" {
   source = "./gitrepo"
 
-  name        = "Home Lab"
+  name        = "homelab"
   description = "Home lab configurations and setup"
   has_wiki    = true
   has_issues  = true
