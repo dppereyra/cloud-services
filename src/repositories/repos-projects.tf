@@ -7,6 +7,7 @@ module "docker-images" {
   has_issues  = true
 }
 
+
 module "homelab" {
   source = "./gitrepo"
 
@@ -14,4 +15,14 @@ module "homelab" {
   description = "Home lab configurations and setup"
   has_wiki    = true
   has_issues  = true
+}
+
+
+module "demo-flux" {
+  source = "./gitrepo"
+
+  name        = "demo-flux"
+  description = "Demo for flux gitops"
+  has_wiki    = false
+  has_issues  = false
 }
