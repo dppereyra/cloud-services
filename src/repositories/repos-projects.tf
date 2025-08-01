@@ -26,3 +26,14 @@ module "demo-flux" {
   has_wiki    = false
   has_issues  = false
 }
+
+
+module "git-dupe" {
+  source = "./gitrepo"
+
+  name        = "git-dupe"
+  description = "git clone with user contexts"
+  has_wiki    = true
+  has_issues  = true
+}
+
