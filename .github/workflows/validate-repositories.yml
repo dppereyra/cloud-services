@@ -10,6 +10,11 @@ on:
       - synchronize
     branches:
       - master
+  push:
+    branches:
+      - master
+    paths:
+      - "src/repositories/**"
 
 env:
   TF_VERSION: "1.10.2"
