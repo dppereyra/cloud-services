@@ -28,12 +28,11 @@ module "demo-flux" {
 }
 
 
-module "git-dupe" {
+module "git-context" {
   source = "./gitrepo"
 
-  name        = "git-dupe"
-  description = "git clone with user contexts"
+  name        = "git-context"
+  description = "When ifincludes is not enough"
   has_wiki    = true
   has_issues  = true
 }
-
